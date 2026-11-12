@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://1xxbpgy1h15y"]
+
+[ext_resource type="Script" uid="uid://donifaj3cgurf" path="res://player.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://bmb0b11us6f8y" path="res://forest.jpg" id="1_7mycd"]
+[ext_resource type="Texture2D" uid="uid://gv7vb2jxk1j0" path="res://basket.png" id="1_lquwl"]
+[ext_resource type="Texture2D" uid="uid://bjwlkivq2r1rs" path="res://capybara.png" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://bqom6fy4xqrlc" path="res://leave.png" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://duapolbsoqr63" path="res://leaf.tscn" id="5_7mycd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bc6nb"]
+size = Vector2(157, 67)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bc6nb"]
+radius = 76.40026
+
+[node name="Node2D" type="Node2D" unique_id=1215670633]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=667289317]
+position = Vector2(573.00006, 327)
+scale = Vector2(1.348, 1.348)
+texture = ExtResource("1_7mycd")
+
+[node name="Basket" type="Area2D" parent="." unique_id=861577604 groups=["basket"]]
+position = Vector2(737, 545)
+
+[node name="Sprite2D" type="Sprite2D" parent="Basket" unique_id=606578806]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_lquwl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Basket" unique_id=495577771]
+position = Vector2(0.5, 9.5)
+shape = SubResource("RectangleShape2D_bc6nb")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1023992924]
+position = Vector2(205, 558)
+script = ExtResource("1_0xm2m")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1903648976]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_h2yge")
+
+[node name="PickupArea" type="Area2D" parent="Player" unique_id=2118667889]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PickupArea" unique_id=1393412655]
+shape = SubResource("CircleShape2D_bc6nb")
+
+[node name="HeldLeaf" type="Sprite2D" parent="Player" unique_id=1044091717]
+visible = false
+position = Vector2(-14, 27.999998)
+rotation = 0.47647488
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_h2yge")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player" unique_id=450844820]
+
+[node name="LeafCountDisplay" type="Label" parent="Player/CanvasLayer" unique_id=271834152]
+offset_left = 1019.0
+offset_top = 34.0
+offset_right = 1160.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "Leaves: 0"
+
+[node name="Leaf" parent="." unique_id=1767358900 instance=ExtResource("5_7mycd")]
+position = Vector2(175, 241)
+
+[node name="Leaf2" parent="." unique_id=1964857062 instance=ExtResource("5_7mycd")]
+position = Vector2(355, 61)
+
+[node name="Leaf3" parent="." unique_id=1027745212 instance=ExtResource("5_7mycd")]
+position = Vector2(539, 134)
+
+[node name="Leaf4" parent="." unique_id=46891676 instance=ExtResource("5_7mycd")]
+position = Vector2(841, 103)
+
+[node name="Leaf5" parent="." unique_id=579674153 instance=ExtResource("5_7mycd")]
+position = Vector2(1075, 214)
+
+[node name="Leaf6" parent="." unique_id=111790898 instance=ExtResource("5_7mycd")]
+position = Vector2(971, 116)
+
+[connection signal="area_entered" from="Player/PickupArea" to="Player" method="_on_pickup_area_area_entered"]
